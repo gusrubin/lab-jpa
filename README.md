@@ -1,0 +1,2 @@
+# lab-jpa
+JPA demo
