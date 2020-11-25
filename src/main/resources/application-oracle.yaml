@@ -3,16 +3,11 @@ server:
   
 spring:
   datasource:
-    url: jdbc:oracle:thin:@//localhost:1521/ORCLCDB
-    username: system
+    url: jdbc:oracle:thin:@//localhost:1521/ORCLPDB1
+    username: labjpa
     password: Oracle19
     driver-class-name: oracle.jdbc.OracleDriver
-#  hikari:
-#    minimumIdle: 5
-#    maximumPoolSize: 20
-#    idleTimeoutr: 30000
-#    maxLifetime: 2000000
-#    connectionTimeout: 30000
-#    poolName: HikariPoolBooks
   jpa:
     database-platform: org.hibernate.dialect.Oracle12cDialect
+  flyway:
+    locations: classpath:db/migration/oracle

@@ -1,11 +1,25 @@
 version: '3.8'
 services:
+  oracle:
+    image: oracle/database:19.3.0-ee
+    network_mode: host
+    ports:
+      - "1521:1521"
+      - "5500:5500"
+    environment:
+      ORACLE_SID: ORCLCDB
+      ORACLE_PDB: ORCLPDB1
+      ORACLE_PWD: Oracle19
+      INIT_SGA_SIZE: 800
+      INIT_PGA_SIZE: 250
+      ORACLE_EDITION: enterprise
+      ORACLE_CHARACTERSET: AL32UTF8
   postgres:
     image: postgres
     network_mode: host
-    environment:
-      POSTGRES_PASSWORD: "postgres"
     ports:
       - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "postgres"    
     volumes:
       - ./.pgdata:/var/lib/postgresql/data

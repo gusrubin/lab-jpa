@@ -6,8 +6,11 @@ import java.util.Optional;
 
 import org.hibernate.service.spi.InjectService;
 import org.junit.Before;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 //import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -16,6 +19,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.gusrubin.lab.jpa.api.simpleentity.dto.CustomerDTO;
@@ -25,8 +29,15 @@ import com.gusrubin.lab.jpa.service.simpleentity.CustomerService;
 import com.gusrubin.lab.jpa.service.simpleentity.mapper.CustomerMapper;
 import com.gusrubin.lab.jpa.simpleentity.builder.CustomerBuilder;
 
-@RunWith(MockitoJUnitRunner.class)
+import lombok.extern.slf4j.Slf4j;
+
+//@RunWith(MockitoJUnitRunner.class)
 //@ActiveProfiles("test")
+@Slf4j
+//@RunWith(JUnitPlatform.class)
+@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
+
 class CustomerServiceTests {
 	
 	@Mock
@@ -39,21 +50,27 @@ class CustomerServiceTests {
 	@InjectMocks
 	private CustomerService serviceSpy;
 	
-//	@Before
-//	public void resetInvocations() {
-//		Mockito.reset(serviceSpy);
-//	}
+	@BeforeEach
+	public void resetInvocations() {
+		//Mockito.reset(serviceSpy);
+		MockitoAnnotations.openMocks(this);//.initMocks(this);
+		log.info("Starting tests");
+	}
 	
-//	@Test
-//	void shouldSaveCustomer() {		
-//		CustomerDTO expected = CustomerBuilder.buildValidDTO();
-//		
-//		Mockito.when(repository.save(Mockito.any())).thenReturn(expected);		
-//		
-//		CustomerDTO result = serviceSpy.save(expected);
-//		
-//		assertEquals(expected.getName(), result.getName());
-//	}
+	@Test
+	void shouldSaveCustomer() {		
+		CustomerDTO expected = CustomerBuilder.buildValidDTO();
+		
+		Mockito.when(repository.save(Mockito.any())).thenReturn(expected);		
+		
+		CustomerDTO result = serviceSpy.save(expected);
+		
+		log.info(expected.getName());
+		
+		log.info(result.getName());
+		
+		assertEquals(expected.getName(), result.getName());
+	}
 	
 //	@Test
 //	void shouldUpdateCustomer() {
