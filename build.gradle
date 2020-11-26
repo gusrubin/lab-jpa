@@ -25,6 +25,15 @@ repositories {
     jcenter()
 }
 
+sourceSets {
+    integrationTest {
+        java.srcDir file('src/integration-test/java')
+        resources.srcDir file('src/integration-test/resources')
+        compileClasspath += sourceSets.main.output + sourceSets.test.output + configurations.testRuntime
+        runtimeClasspath += sourceSets.main.output + sourceSets.test.output + configurations.testRuntime
+    }
+}
+
 dependencies {
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:28.2-jre'
@@ -42,6 +51,8 @@ dependencies {
     
 	compile group: 'org.projectlombok', name: 'lombok', version: '1.18.16'
 	
+	implementation "dev.snowdrop:vertx-spring-boot-starter-http:1.0.0"
+	
 	// https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc10
 	compile group: 'com.oracle.database.jdbc', name: 'ojdbc10', version: '19.8.0.0'
 	
@@ -50,6 +61,8 @@ dependencies {
 	
 	// https://mvnrepository.com/artifact/org.flywaydb/flyway-core
 	compile group: 'org.flywaydb', name: 'flyway-core', version: '7.2.1'
+	
+	compile "io.projectreactor.netty:reactor-netty"
     
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     //{
@@ -63,6 +76,15 @@ dependencies {
 	
 	// https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter
 	testCompile group: 'org.mockito', name: 'mockito-junit-jupiter', version: '3.6.0'
+	
+	// https://mvnrepository.com/artifact/com.h2database/h2
+	testCompile group: 'com.h2database', name: 'h2', version: '1.4.200'	
+}
+
+configurations {
+    integrationTestImplementation.extendsFrom testImplementation
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
 }
 
 test {

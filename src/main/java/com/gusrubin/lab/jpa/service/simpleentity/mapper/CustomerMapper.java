@@ -17,7 +17,7 @@ public class CustomerMapper {
 	
 	public CustomerEntity toEntity(CustomerDTO dto) {
 		return CustomerEntity.builder()
-				.id(dto.getId())
+				.id(dto.getId() != null ? dto.getId() : null)
 				.name(dto.getName())
 				.build();
 	}

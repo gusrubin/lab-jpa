@@ -13,18 +13,39 @@ public class CustomerBuilder {
 	
 	private static final String VALID_NAME_B = "CustomerB";
 	
-	public static CustomerEntity buildValidEntity() {
+	public static CustomerDTO buildValidDTOCustomerA() {
+		return CustomerDTO.builder()
+				.id(null)
+				.name(VALID_NAME_A)
+				.build();
+	}
+	
+	public static CustomerEntity buildValidEntityCustomerA() {
 		return CustomerEntity.builder()
 				.id(ID)
 				.name(VALID_NAME_A)
 				.build();
 	}
 	
-	public static CustomerDTO buildValidDTO() {
+	public static CustomerDTO buildValidDTOCustomerB() {
 		return CustomerDTO.builder()
 				.id(null)
 				.name(VALID_NAME_B)
 				.build();
 	}
+	
+	public static CustomerEntity buildValidEntityCustomerB() {
+		return CustomerEntity.builder()
+				.id(ID)
+				.name(VALID_NAME_B)
+				.build();
+	}
+	
+	public static CustomerDTO buildDTOWithCustomerNameNull() {
+		return CustomerDTO.builder()
+				.id(null)
+				.name(null)
+				.build();
+	}	
 
 }
