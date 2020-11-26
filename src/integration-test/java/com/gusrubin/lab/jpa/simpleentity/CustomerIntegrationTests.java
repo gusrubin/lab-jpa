@@ -40,7 +40,7 @@ import io.vertx.core.json.Json;
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
 @ActiveProfiles("it")
-class CustomerServiceIntegrationTests {
+class CustomerIntegrationTests {
 	
 	@Autowired
 	private CustomerRepository repository;
