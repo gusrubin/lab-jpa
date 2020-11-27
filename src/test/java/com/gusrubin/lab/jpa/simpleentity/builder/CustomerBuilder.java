@@ -7,7 +7,7 @@ import com.gusrubin.lab.jpa.repository.simpleentity.entity.CustomerEntity;
 
 public class CustomerBuilder {
 	
-	private static final UUID ID = UUID.randomUUID();
+	private static final UUID NEW_ID = UUID.randomUUID();
 	
 	private static final String VALID_NAME_A = "CustomerA";
 	
@@ -22,7 +22,7 @@ public class CustomerBuilder {
 	
 	public static CustomerEntity buildValidEntityCustomerA() {
 		return CustomerEntity.builder()
-				.id(ID)
+				.id(NEW_ID)
 				.name(VALID_NAME_A)
 				.build();
 	}
@@ -36,7 +36,7 @@ public class CustomerBuilder {
 	
 	public static CustomerEntity buildValidEntityCustomerB() {
 		return CustomerEntity.builder()
-				.id(ID)
+				.id(NEW_ID)
 				.name(VALID_NAME_B)
 				.build();
 	}
