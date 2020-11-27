@@ -37,6 +37,11 @@ private final ItemService service;
 		return ResponseEntity.ok(service.findById(id));
 	}
 	
+	@GetMapping("/cart/{cartId}")
+	public ResponseEntity<List<ItemDTO>> findByCartId(@PathVariable UUID cartId) {
+		return ResponseEntity.ok(service.findByCartId(cartId));
+	}
+	
 	@PostMapping
 	public ResponseEntity<ItemDTO> create(@RequestBody ItemDTO requestBody) {
 		return ResponseEntity.ok(service.save(requestBody));

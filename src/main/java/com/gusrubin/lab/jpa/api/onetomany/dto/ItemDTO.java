@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 public class ItemDTO {
 	
 	private UUID id;
+	
+	private String name;
 
 	private UUID cartId;
 

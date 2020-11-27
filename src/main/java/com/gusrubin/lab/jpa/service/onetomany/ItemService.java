@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import com.gusrubin.lab.jpa.api.onetomany.dto.ItemDTO;
 import com.gusrubin.lab.jpa.repository.onetomany.CartRepository;
 import com.gusrubin.lab.jpa.repository.onetomany.ItemRepository;
@@ -25,7 +27,6 @@ public class ItemService {
 
 	@Autowired
 	public ItemService(ItemRepository itemRepository, ItemMapper itemMapper, CartRepository cartRepository) {
-		super();
 		this.repository = itemRepository;
 		this.mapper = itemMapper;
 		this.cartRepository = cartRepository;
@@ -40,15 +41,22 @@ public class ItemService {
 		return result.isPresent() ? mapper.toDTO(result.get()) : null;
 	}
 	
+	public List<ItemDTO> findByCartId(UUID cartId) {
+		return repository.findByCartId(cartId).stream().map(mapper::toDTO).collect(Collectors.toList());
+	}
+	
 	public ItemDTO save(ItemDTO itemDTO) {
+		if (!StringUtils.hasText(itemDTO.getName())) {
+			throw new IllegalArgumentException("Missing Item Name");
+		}
 		if (itemDTO.getCartId() == null) {
-			throw new IllegalStateException("Missing Cart ID");
+			throw new IllegalArgumentException("Missing Cart ID");
 		}
 		Optional<Cart> cartResult = cartRepository.findById(itemDTO.getCartId());
 		if (cartResult.isEmpty()) {
 			throw new IllegalStateException("Cart not registered");
 		}
-		return mapper.toDTO(repository.save(Item.builder().cart(cartResult.get()).build()));
+		return mapper.toDTO(repository.save(Item.builder().name(itemDTO.getName()).cart(cartResult.get()).build()));
 	}
 	
 	public void delete(UUID id) {

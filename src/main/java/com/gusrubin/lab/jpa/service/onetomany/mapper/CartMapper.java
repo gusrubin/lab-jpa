@@ -11,12 +11,14 @@ public class CartMapper {
 	public CartDTO toDTO(Cart entity) {
 		return CartDTO.builder()
 				.id(entity.getId())
+				.items(entity.getItems())
 				.build();
 	}
 	
 	public Cart toEntity(CartDTO dto) {
 		return Cart.builder()
 				.id(dto.getId() != null ? dto.getId() : null)
+				.items(dto.getItems() != null ? dto.getItems() : null)
 				.build();
 	}
 

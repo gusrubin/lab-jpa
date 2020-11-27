@@ -3,6 +3,7 @@ package com.gusrubin.lab.jpa.repository.onetomany.entity;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +32,7 @@ public class Cart {
     @Column(name = "ID")
 	private UUID id;
 	
-	@OneToMany(mappedBy="cart")
+	@OneToMany(mappedBy="cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> items;
 
 }

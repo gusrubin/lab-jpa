@@ -20,7 +20,6 @@ public class CartService {
 	private final CartMapper mapper;
 
 	public CartService(CartRepository cartRepository, CartMapper cartMapper) {
-		super();
 		this.repository = cartRepository;
 		this.mapper = cartMapper;
 	}

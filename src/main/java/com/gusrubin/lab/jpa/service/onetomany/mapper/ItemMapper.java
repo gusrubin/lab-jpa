@@ -12,6 +12,7 @@ public class ItemMapper {
 	public ItemDTO toDTO(Item entity) {
 		return ItemDTO.builder()
 				.id(entity.getId())
+				.name(entity.getName())
 				.cartId(entity.getCart().getId())
 				.build();
 	}
@@ -19,6 +20,7 @@ public class ItemMapper {
 	public Item toEntity(ItemDTO dto) {
 		return Item.builder()
 				.id(dto.getId() != null ? dto.getId() : null)
+				.name(dto.getName())
 				.cart(dto.getCartId() != null ? Cart.builder().id(dto.getId()).build() : null)
 				.build();
 	}
